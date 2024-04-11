@@ -10,7 +10,11 @@ auth = Blueprint('auth', __name__)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
+        print(len(email))
         password = request.form.get('password')
+        if len(email) == 0:
+            flash('email does not exist', category='error')
+            return render_template("login.html", user=current_user)
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
@@ -20,7 +24,7 @@ def login():
             else:
                 flash('incorrect password', category='error')
         else:
-            flash('email does not exist', category='error0')
+            flash('email does not exist', category='error')
 
     return render_template("login.html", user=current_user)
 

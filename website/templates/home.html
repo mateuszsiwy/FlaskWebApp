@@ -1,6 +1,7 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-    %}
-    <h1 align="center">Notes</h1>
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+
+{% if current_user.is_authenticated %}
+<h1 align="center">Notes</h1>
     <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
       {% with ID = note.id %}
@@ -17,7 +18,26 @@
       <textarea name="note" id="note" class="form-control"></textarea>
       <br />
       <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
+        <button type="submit" class="btn btn-primary bg-dark">Add Note</button>
       </div>
     </form>
+
+
+    {% else %}
+    <br><br>
+    <div align="center">
+      <img src="static/images/image5.png" alt="" width="20%" height="20%">
+      <br><br><br>
+    </div>
+
+    <div>
+      <h4 align="center">Organize your notes with this simple Notes Manager!</h4>
+    </div>
+    
+    <div align="center">
+      <br><br>
+      <a href="/login" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
+      <a href="/sign_up" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Sign Up</a>
+    </div>
+    {% endif %}
     {% endblock %}
